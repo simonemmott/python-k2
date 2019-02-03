@@ -8,17 +8,7 @@ from os import path
 
 @click.group()
 def k2():
-    pass
-
-@k2.command()
-@click.argument('name')
-def hello(name):
-    click.echo('Hello {name}!'.format(name=name))
-    
-@k2.command()
-def goodbye():
-    click.echo('Goodbye')
-    
+    pass    
 
 @k2.command()
 @click.option('--base', help='Identify the location of the k2 base directory. If not set defaults to the current directory')
