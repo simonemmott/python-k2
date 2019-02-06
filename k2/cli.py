@@ -107,14 +107,20 @@ def _get_base_user_group(base=None, user=None, group=None):
     return k2_base, k2_user, k2_group
   
 @k2.command()
-@click.argument('src', help='The URL that supplies the source code for the application to be installed')
-@click.option('--name', help='The name of the application to be installed. If not set defaults to the name supplied with the application')
-def install(src, name):
+@click.argument('src')
+@click.option('--name')
+@click.option('--base')
+def install(src, base, name):
     '''
     Install the application source identified by the src URL as a Flask application directory within the current
     K2 base directory identified by the environment variable $K2_BASE
     '''
-    app_installer.install(src, name)
+    if not base:
+        base = os.environ['K2_BASE']
+        if not base:
+            raise ValueError('The environment variable $K2_BASE is not set')
+    
+    app_installer.install(src, base, name)
 
 if __name__ == '__main__':
     k2()

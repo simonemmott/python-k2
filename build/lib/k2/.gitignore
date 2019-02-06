@@ -1,2 +1,3 @@
 /__init__.py
 /cli.py
+/app_installer.py
