@@ -5,16 +5,20 @@ Created on 30 Jan 2019
 '''
 import click, os, grp, pwd, getpass, shutil
 from os import path
+from k2 import app_installer
 
 @click.group()
 def k2():
-    pass    
+    pass   
 
 @k2.command()
 @click.option('--base', help='Identify the location of the k2 base directory. If not set defaults to the current directory')
 @click.option('--user', help='Identify the OS user that is the owner of the k2 web apps environment. Defaults the current owner of the base directory or the current user if the current base directory does not exist')
 @click.option('--group', help='Identify the OS group that is the owner of the k2 web apps environment. Defaults the group the base directory or the group of the current user if the current base directory does not exist')
 def config(base, user, group):
+    '''
+    Configure the current directory or the given base as the K2 base directory
+    '''
     k2_base, k2_user, k2_group = _get_base_user_group(base, user, group)
     
     _k2_env_summary(k2_base, k2_user, k2_group)
@@ -102,6 +106,16 @@ def _get_base_user_group(base=None, user=None, group=None):
     
     return k2_base, k2_user, k2_group
   
+@k2.command()
+@click.argument('src', help='The URL that supplies the source code for the application to be installed')
+@click.option('--name', help='The name of the application to be installed. If not set defaults to the name supplied with the application')
+def install(src, name):
+    '''
+    Install the application source identified by the src URL as a Flask application directory within the current
+    K2 base directory identified by the environment variable $K2_BASE
+    '''
+    app_installer.install(src, name)
+
 if __name__ == '__main__':
     k2()
     
