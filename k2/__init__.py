@@ -1,3 +1,3 @@
 import os
 
-base = os.environ['K2_BASE']
+base = os.environ.get('K2_BASE')
