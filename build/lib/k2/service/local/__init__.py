@@ -4,15 +4,14 @@ Created on 10 Feb 2019
 @author: simon
 '''
 
-service_installers = {}
+services = []
 
 def local_service():
     '''
     This decorator method registers the decorated class as a local service installer
     '''
     def decorator(cls):
-        inst = cls()
-        service_installers[inst.service()['ref']] = inst
+        services.append(cls)
         return cls
     return decorator
 

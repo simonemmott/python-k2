@@ -23,35 +23,17 @@ class Installer(LocalServiceInstaller):
                 'type': 'INTERFACE',
                 'methods': [
                         {
-                            'name': 'services',
+                            'name': 'local_services',
                             'title': 'Get Local Services',
                             'description': 'Get the local services available in this K2 implementation',
                             'returns': 'A list of service definitions',
                             'return_type': {
-                                'type': 'array',
+                                'type': 'list',
                                 'items': {
                                     'type': 'k2.service.local'
                                 }
                             },
                             'parameters': []
-                        },
-                        {
-                            'name': 'installer',
-                            'title': 'Get Local Service Installer',
-                            'description': 'Get local service installer for the given service',
-                            'returns': 'An instance of LocalServiceInstaller for the requested service',
-                            'return_type': {
-                                'type': 'k2.service.local.LocalServiceInstaller',
-                            },
-                            'parameters': [
-                                {
-                                    'name': 'service_ref',
-                                    'title': 'Service Reference',
-                                    'description': 'The reference of the service for which to return the local service installer',
-                                    'type': 'string',
-                                    'required': True
-                                }
-                            ]
                         }
                     ]
                 }
@@ -61,13 +43,4 @@ class Installer(LocalServiceInstaller):
         return []
     
     def source(self):
-        return '''
-from k2.service.local import service_installers
-
-def services():
-    return [inst.service() for _, inst in service_installers.items()]
-
-
-def installer(service_name):
-    return service_installers[service_name]
-'''
+        return 'TODO: K2 LOCAL SERVICE SCRIPT'
